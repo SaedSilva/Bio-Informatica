@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="textColorHint">#FF49454F</color>
+
     <color name="primary">#e7387e</color>
     <color name="onPrimary">#FFFFFFFF</color>
     <color name="primaryVariant">#bd035e</color>
@@ -11,7 +13,7 @@
     <color name="onSecondary">#FF000000</color>
     <color name="secondaryVariant">#0b73b1</color>
 
-    <color name="background">#FFFFFFFF</color>
+    <color name="background">#E6E6E6</color>
     <color name="onBackground">#FF000000</color>
 
     <color name="surface">#FFFFFFFF</color>

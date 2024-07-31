@@ -36,5 +36,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TextoActivity::class.java)
             startActivity(intent)
         }
+        binding.btnScriptSSH.setOnClickListener {
+            val intent = Intent(this, SSHActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

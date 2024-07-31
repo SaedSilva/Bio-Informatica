@@ -57,13 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Masculino" />
+            android:text="Masculino"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/rbFeminino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Feminino" />
+            android:text="Feminino"
+            android:textColor="@color/black" />
     </RadioGroup>
 
     <Button
@@ -74,6 +76,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="Gerar Pessoa"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
