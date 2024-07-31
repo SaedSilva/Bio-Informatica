@@ -14,4 +14,8 @@ class SSHViewModel : ViewModel() {
     fun disconnect() {
         ssh.disconnectSession()
     }
+
+    fun getSSH(): ConnectionSSH {
+        return ssh
+    }
 }

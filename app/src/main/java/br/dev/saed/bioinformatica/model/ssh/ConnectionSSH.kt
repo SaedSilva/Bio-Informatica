@@ -1,27 +1,27 @@
 package br.dev.saed.bioinformatica.model.ssh
 
+import android.os.Parcelable
 import com.jcraft.jsch.ChannelExec
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.Session
+import kotlinx.parcelize.Parcelize
 import java.io.ByteArrayOutputStream
 
+@Parcelize
 class ConnectionSSH(
     private val username: String,
     private val password: String,
     private val host: String,
     private val port: Int,
-) {
+): Parcelable {
     private val jsch = JSch()
     private val session: Session = jsch.getSession(username, host, port)
-
-    private lateinit var channel: ChannelExec
 
     fun connectSession(): Boolean {
         try {
             session.setPassword(password)
             session.setConfig("StrictHostKeyChecking", "no")
             session.connect()
-            channel = session.openChannel("exec") as ChannelExec
             return true
         } catch (e: Exception) {
             return false
@@ -35,17 +35,22 @@ class ConnectionSSH(
     fun executeCommand(command: String): String {
         if (!session.isConnected) return "Session is not connected"
 
-        channel.setCommand(command)
+        val channel = session.openChannel("exec") as ChannelExec
         val responseStream = ByteArrayOutputStream()
-        channel.outputStream = responseStream
-        channel.connect()
+        try {
+            channel.setCommand(command)
+            channel.outputStream = responseStream
+            channel.connect()
 
-        while (!channel.isClosed) {
-            Thread.sleep(1000)
+            while (!channel.isClosed) {
+                Thread.sleep(1000)
+            }
+
+            return responseStream.toString()
+        } catch (e: Exception) {
+            return "Error: ${e.message}"
+        } finally {
+            if (channel.isConnected) channel.disconnect()
         }
-
-        val result = String(responseStream.toByteArray())
-        channel.disconnect()
-        return result
     }
 }

@@ -1,5 +1,6 @@
 package br.dev.saed.bioinformatica.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -48,6 +49,10 @@ class SSHActivity : AppCompatActivity() {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(applicationContext, "Conectado", Toast.LENGTH_SHORT).show()
                     }
+                    val intent = Intent(applicationContext, ComandosActivity::class.java)
+                    intent.putExtra("ssh", viewModel.getSSH())
+                    startActivity(intent)
+
                 } else {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(applicationContext, "Erro ao conectar", Toast.LENGTH_SHORT)
