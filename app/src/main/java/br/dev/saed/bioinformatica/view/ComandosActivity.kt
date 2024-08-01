@@ -1,7 +1,6 @@
 package br.dev.saed.bioinformatica.view
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.dev.saed.bioinformatica.R
 import br.dev.saed.bioinformatica.databinding.ActivityComandosBinding
-import br.dev.saed.bioinformatica.model.ssh.ConnectionSSH
 import br.dev.saed.bioinformatica.view.adapter.ComandosAdapterRV
 import br.dev.saed.bioinformatica.viewmodel.SSHViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -26,24 +24,9 @@ class ComandosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityComandosBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        receberDados()
         inicializarComponentes()
         inicializarObservers()
         configurarRV()
-    }
-
-    private fun receberDados() {
-        val dados = intent.extras
-        if (dados != null) {
-            val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                dados.getParcelable("ssh", ConnectionSSH::class.java)
-            } else {
-                dados.getParcelable("ssh") as ConnectionSSH?
-            }
-            if (result != null) {
-                viewModel.instaciarSSH(result)
-            }
-        }
     }
 
     override fun onResume() {
@@ -56,7 +39,6 @@ class ComandosActivity : AppCompatActivity() {
         comandosAdapterRV = ComandosAdapterRV(
             executar = { comando ->
                 CoroutineScope(Dispatchers.IO).launch {
-                    receberDados()
                     val result = viewModel.executeCommand(comando)
                     val intent = Intent(applicationContext, ResultadoActivity::class.java)
                     intent.putExtra("result", result)
@@ -66,7 +48,6 @@ class ComandosActivity : AppCompatActivity() {
             editar = { comando ->
                 val intent = Intent(applicationContext, SalvarComandoActivity::class.java)
                 intent.putExtra("comando", comando)
-                intent.putExtra("ssh", viewModel.getSSH())
                 startActivity(intent)
             },
             excluir = { comando ->
@@ -99,7 +80,6 @@ class ComandosActivity : AppCompatActivity() {
     private fun inicializarComponentes() {
         binding.fabAdicionar.setOnClickListener {
             val intent = Intent(this, SalvarComandoActivity::class.java)
-            intent.putExtra("ssh", viewModel.getSSH())
             startActivity(intent)
         }
     }

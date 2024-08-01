@@ -14,6 +14,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import br.dev.saed.bioinformatica.databinding.ActivitySshactivityBinding
+import br.dev.saed.bioinformatica.model.ssh.ManagerSSH
 import br.dev.saed.bioinformatica.viewmodel.SSHViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,6 +40,13 @@ class SSHActivity : AppCompatActivity() {
         inicializarComponentes()
         inicializarObservers()
         carregarConfiguracoes()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (ManagerSSH.connectionSSH != null){
+            finish()
+        }
     }
 
     private fun carregarConfiguracoes() {
@@ -67,6 +75,12 @@ class SSHActivity : AppCompatActivity() {
     }
 
     private fun inicializarComponentes() {
+        if (ManagerSSH.connectionSSH != null){
+            val intent = Intent(applicationContext, ComandosActivity::class.java)
+            finish()
+            startActivity(intent)
+        }
+
         binding.btnConectar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 if (viewModel.connect(

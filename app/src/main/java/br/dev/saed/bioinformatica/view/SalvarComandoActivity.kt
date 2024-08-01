@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.dev.saed.bioinformatica.databinding.ActivitySalvarComandoBinding
 import br.dev.saed.bioinformatica.model.entity.Comando
-import br.dev.saed.bioinformatica.model.ssh.ConnectionSSH
 import br.dev.saed.bioinformatica.viewmodel.SSHViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,14 +16,12 @@ class SalvarComandoActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySalvarComandoBinding
     private val viewModel: SSHViewModel by viewModels()
     private var id: Int? = null
-    private var ssh: ConnectionSSH? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySalvarComandoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         inicializarComponentes()
-        inicializarObservers()
         receberDados()
         viewModel.instanciarRepository(this)
     }
@@ -42,20 +39,7 @@ class SalvarComandoActivity : AppCompatActivity() {
                 binding.etNome.setText(comando.nome)
                 binding.etComando.setText(comando.comando)
             }
-
-            val ssh = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                extras.getParcelable("ssh", ConnectionSSH::class.java)
-            } else {
-                extras.getParcelable("ssh") as ConnectionSSH?
-            }
-            if (ssh != null) {
-                this.ssh = ssh
-            }
         }
-    }
-
-    private fun inicializarObservers() {
-
     }
 
     private fun inicializarComponentes() {
@@ -69,9 +53,6 @@ class SalvarComandoActivity : AppCompatActivity() {
                 binding.etComando.error = "* Obrigatório"
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-                    if (ssh != null) {
-                        viewModel.instaciarSSH(ssh!!)
-                    }
                     val result = viewModel.executeCommand(Comando(id, nome, comando))
                     val intent = Intent(applicationContext, ResultadoActivity::class.java)
                     intent.putExtra("result", result)

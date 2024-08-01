@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import br.dev.saed.bioinformatica.model.entity.Comando
 import br.dev.saed.bioinformatica.model.repository.ComandoRepository
 import br.dev.saed.bioinformatica.model.ssh.ConnectionSSH
+import br.dev.saed.bioinformatica.model.ssh.ManagerSSH
 
 class SSHViewModel : ViewModel() {
-    private lateinit var ssh: ConnectionSSH
     private lateinit var repository: ComandoRepository
 
     private val _comandos = MutableLiveData<List<Comando>>()
@@ -20,25 +20,24 @@ class SSHViewModel : ViewModel() {
     }
 
     fun instaciarSSH(ssh: ConnectionSSH) {
-        this.ssh = ssh
-        ssh.connectSession()
+        ManagerSSH.connectionSSH = ssh
     }
 
     fun connect(name: String, password: String, host: String, port: Int): Boolean {
-        ssh = ConnectionSSH(name, password, host, port)
-        return ssh.connectSession()
+        ManagerSSH.connectionSSH = ConnectionSSH(name, password, host, port)
+        return ManagerSSH.connectionSSH?.connectSession() ?: false
     }
 
     fun disconnect() {
-        ssh.disconnectSession()
+        ManagerSSH.connectionSSH?.disconnectSession()
     }
 
     fun getSSH(): ConnectionSSH {
-        return ssh
+        return ManagerSSH.connectionSSH!!
     }
 
     fun executeCommand(comando: Comando): String {
-        return ssh.executeCommand(comando.comando)
+        return ManagerSSH.connectionSSH?.executeCommand(comando.comando) ?: "Connection not found"
     }
 
     fun carregarComandos() {

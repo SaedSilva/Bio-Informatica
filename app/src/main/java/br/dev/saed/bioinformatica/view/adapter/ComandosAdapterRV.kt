@@ -39,8 +39,8 @@ class ComandosAdapterRV(
         private val binding: ItemComandoBinding,
     ) : ViewHolder(binding.root) {
         fun bind(comando: Comando) {
-            binding.tvNomeComando.text = comando.nome
-            binding.tvComando.text = comando.comando
+            binding.tvNomeComando.text = "Nome: ${comando.nome}"
+            binding.tvComando.text = "Comando: ${comando.comando}"
 
             binding.btnIniciar.setOnClickListener {
                 executar(comando)
