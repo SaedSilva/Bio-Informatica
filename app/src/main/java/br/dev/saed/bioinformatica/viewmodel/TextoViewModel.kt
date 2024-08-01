@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.dev.saed.bioinformatica.model.api.PythonAPI
 import br.dev.saed.bioinformatica.model.api.RetrofitHelper
-import br.dev.saed.bioinformatica.model.entities.Texto
+import br.dev.saed.bioinformatica.model.entity.Texto
 
 class TextoViewModel : ViewModel() {
     private val retrofit = RetrofitHelper.retrofit.create(PythonAPI::class.java)

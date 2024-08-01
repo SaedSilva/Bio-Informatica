@@ -55,4 +55,6 @@ dependencies {
 
     implementation("com.jcraft:jsch:0.1.55")
 
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
 }

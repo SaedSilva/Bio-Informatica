@@ -20,40 +20,8 @@
       app:layout_constraintTop_toTopOf="parent"
       app:srcCompat="@drawable/ssh" />
 
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/tilComando"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/imgComandos">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etComando"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Comando" />
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <Button
-      android:id="@+id/btnExecutarComando"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="16dp"
-      android:text="Executar"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/tilComando"
-      app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica" />
-
-  <ScrollView
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvComandos"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginStart="16dp"
@@ -62,24 +30,20 @@
       android:layout_marginBottom="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/btnExecutarComando">
+      app:layout_constraintTop_toBottomOf="@+id/imgComandos"
+      tools:listitem="@layout/item_comando" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-      <TextView
-          android:id="@+id/tvResultadoComando"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="16dp"
-          android:text="Resultado" />
-    </LinearLayout>
-  </ScrollView>
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fabAdicionar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
+      android:clickable="true"
+      android:src="@drawable/add_24"
+      app:backgroundTint="@color/secondary"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

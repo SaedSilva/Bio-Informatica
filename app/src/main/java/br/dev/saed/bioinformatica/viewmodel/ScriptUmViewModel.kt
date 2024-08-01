@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.dev.saed.bioinformatica.model.api.PythonAPI
 import br.dev.saed.bioinformatica.model.api.RetrofitHelper
-import br.dev.saed.bioinformatica.model.entities.Pessoa
-import br.dev.saed.bioinformatica.model.entities.Sexo
+import br.dev.saed.bioinformatica.model.entity.Pessoa
+import br.dev.saed.bioinformatica.model.entity.Sexo
 
 class ScriptUmViewModel : ViewModel() {
     private val retrofit = RetrofitHelper.retrofit.create(PythonAPI::class.java)

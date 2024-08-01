@@ -1,11 +1,10 @@
 package br.dev.saed.bioinformatica.model.api
 
-import br.dev.saed.bioinformatica.model.entities.Pessoa
-import br.dev.saed.bioinformatica.model.entities.Sexo
-import br.dev.saed.bioinformatica.model.entities.Texto
+import br.dev.saed.bioinformatica.model.entity.Pessoa
+import br.dev.saed.bioinformatica.model.entity.Sexo
+import br.dev.saed.bioinformatica.model.entity.Texto
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface PythonAPI {

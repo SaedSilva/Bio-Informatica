@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import br.dev.saed.bioinformatica.databinding.ActivityScriptUmBinding
-import br.dev.saed.bioinformatica.model.entities.Sexo
+import br.dev.saed.bioinformatica.model.entity.Sexo
 import br.dev.saed.bioinformatica.viewmodel.ScriptUmViewModel
 import kotlinx.coroutines.launch
 

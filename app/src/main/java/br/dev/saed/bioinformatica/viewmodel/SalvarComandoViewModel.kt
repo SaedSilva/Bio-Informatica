@@ -8,28 +8,23 @@ import br.dev.saed.bioinformatica.model.entity.Comando
 import br.dev.saed.bioinformatica.model.repository.ComandoRepository
 import br.dev.saed.bioinformatica.model.ssh.ConnectionSSH
 
-class ComandosViewModel : ViewModel() {
-    private lateinit var ssh: ConnectionSSH
+class SalvarComandoViewModel : ViewModel() {
 
-    private val _comandos = MutableLiveData<List<Comando>>()
-    val comandos: LiveData<List<Comando>> get() = _comandos
+    private lateinit var ssh: ConnectionSSH
+    private val _comando = MutableLiveData<String>()
+    val comando: LiveData<String> get() = _comando
 
     fun instantiateSSH(ssh: ConnectionSSH) {
         this.ssh = ssh
         ssh.connectSession()
     }
 
-    fun executeCommand(command: String): String {
-        return ssh.executeCommand(command)
+    fun executeCommand(comando: Comando) {
+        _comando.postValue(ssh.executeCommand(comando.comando))
     }
 
-    fun carregarComandos(context: Context) {
+    fun salvarComando(comando: Comando, context: Context) {
         val repository = ComandoRepository(context)
-        _comandos.postValue(repository.listar())
+        repository.salvar(comando)
     }
-
-    fun getSSH(): ConnectionSSH {
-        return ssh
-    }
-
 }
