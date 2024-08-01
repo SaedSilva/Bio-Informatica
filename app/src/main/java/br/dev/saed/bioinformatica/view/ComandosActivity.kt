@@ -4,73 +4,94 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.dev.saed.bioinformatica.R
 import br.dev.saed.bioinformatica.databinding.ActivityComandosBinding
 import br.dev.saed.bioinformatica.model.ssh.ConnectionSSH
 import br.dev.saed.bioinformatica.view.adapter.ComandosAdapterRV
-import br.dev.saed.bioinformatica.viewmodel.ComandosViewModel
+import br.dev.saed.bioinformatica.viewmodel.SSHViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ComandosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityComandosBinding
-    private val comandosViewModel: ComandosViewModel by viewModels()
+    private val viewModel: SSHViewModel by viewModels()
     private lateinit var comandosAdapterRV: ComandosAdapterRV
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityComandosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        receberDados()
         inicializarComponentes()
         inicializarObservers()
-        receberDados()
         configurarRV()
-        comandosViewModel.carregarComandos(applicationContext)
+    }
+
+    private fun receberDados() {
+        val dados = intent.extras
+        if (dados != null) {
+            val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                dados.getParcelable("ssh", ConnectionSSH::class.java)
+            } else {
+                dados.getParcelable("ssh") as ConnectionSSH?
+            }
+            if (result != null) {
+                viewModel.instaciarSSH(result)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.instanciarRepository(this)
+        viewModel.carregarComandos()
     }
 
     private fun configurarRV() {
         comandosAdapterRV = ComandosAdapterRV(
             executar = { comando ->
                 CoroutineScope(Dispatchers.IO).launch {
-                    comandosViewModel.executeCommand(comando.comando)
+                    receberDados()
+                    val result = viewModel.executeCommand(comando)
+                    val intent = Intent(applicationContext, ResultadoActivity::class.java)
+                    intent.putExtra("result", result)
+                    startActivity(intent)
                 }
             },
             editar = { comando ->
-
+                val intent = Intent(applicationContext, SalvarComandoActivity::class.java)
+                intent.putExtra("comando", comando)
+                intent.putExtra("ssh", viewModel.getSSH())
+                startActivity(intent)
             },
             excluir = { comando ->
-                CoroutineScope(Dispatchers.IO).launch {
+                val alertDialog = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+                    .setMessage("Deseja excluir o comando?")
+                    .setPositiveButton("Sim") { _, _ ->
+                        viewModel.excluirComando(comando)
+                        viewModel.carregarComandos()
+                    }
+                    .setNegativeButton("Não") { _, _ -> }
+                    .show()
 
-                }
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(getColor(R.color.white))
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(getColor(R.color.white))
             }
         )
         binding.rvComandos.adapter = comandosAdapterRV
-        binding.rvComandos.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
-    }
-
-    private fun receberDados() {
-        val extras = intent.extras
-        if (extras != null) {
-            val ssh = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                extras.getParcelable("ssh", ConnectionSSH::class.java)
-            } else {
-                extras.getParcelable("ssh")
-            }
-            if (ssh != null) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    comandosViewModel.instantiateSSH(ssh)
-                }
-            } else {
-                finish()
-            }
-        }
+        binding.rvComandos.layoutManager =
+            LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
     }
 
     private fun inicializarObservers() {
-        comandosViewModel.comandos.observe(this) {
+        viewModel.comandos.observe(this) {
             comandosAdapterRV.atualizarComandos(it)
         }
     }
@@ -78,7 +99,7 @@ class ComandosActivity : AppCompatActivity() {
     private fun inicializarComponentes() {
         binding.fabAdicionar.setOnClickListener {
             val intent = Intent(this, SalvarComandoActivity::class.java)
-            intent.putExtra("ssh", comandosViewModel.getSSH())
+            intent.putExtra("ssh", viewModel.getSSH())
             startActivity(intent)
         }
     }
