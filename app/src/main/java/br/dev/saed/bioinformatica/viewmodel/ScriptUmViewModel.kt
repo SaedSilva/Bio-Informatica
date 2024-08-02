@@ -3,26 +3,34 @@ package br.dev.saed.bioinformatica.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.dev.saed.bioinformatica.model.api.PythonAPI
-import br.dev.saed.bioinformatica.model.api.RetrofitHelper
-import br.dev.saed.bioinformatica.model.entity.Pessoa
-import br.dev.saed.bioinformatica.model.entity.Sexo
+import androidx.lifecycle.viewModelScope
+import br.dev.saed.bioinformatica.model.socket.SocketClient
+import br.dev.saed.bioinformatica.model.socket.SocketManager
+import br.dev.saed.bioinformatica.model.utils.ConfigManager
 
 class ScriptUmViewModel : ViewModel() {
-    private val retrofit = RetrofitHelper.retrofit.create(PythonAPI::class.java)
-    private val _pessoa = MutableLiveData<Pessoa>()
-    val pessoa: LiveData<Pessoa> get() = _pessoa
 
-    suspend fun gerarPessoa(sexo: Sexo) {
-        try {
-            val response = retrofit.gerarNomeAleatorio(sexo)
-            if (response.isSuccessful) {
-                _pessoa.postValue(response.body())
-            } else {
-                _pessoa.postValue(Pessoa("Erro"))
-            }
-        } catch (e: Exception) {
-            _pessoa.postValue(Pessoa(e.message ?: "Erro"))
-        }
+    private val uiScope = viewModelScope
+
+    private val _mensagem = MutableLiveData<String>()
+    val mensagem: LiveData<String> get() = _mensagem
+
+    private val _resultado = MutableLiveData<Boolean>()
+    val resultado: LiveData<Boolean> get() = _resultado
+
+    suspend fun connect(): Boolean {
+        SocketManager.socketClient =
+            SocketClient(ConfigManager.config!!.host, ConfigManager.config!!.port)
+        val result = SocketManager.socketClient!!.connect()
+        _resultado.postValue(result)
+        return result
+    }
+
+    fun send(mensagem: String) {
+        _mensagem.postValue(SocketManager.socketClient!!.send(mensagem))
+    }
+
+    fun disconnect() {
+        SocketManager.socketClient?.disconnect()
     }
 }

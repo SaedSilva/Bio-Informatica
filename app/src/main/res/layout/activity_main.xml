@@ -36,45 +36,31 @@
         app:layout_constraintTop_toBottomOf="@+id/imgMain" />
 
     <Button
-        android:id="@+id/btnScript1"
+        android:id="@+id/btnSocket"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="SCRIPT 1 (Gerar nome aleatório)"
+        android:text="Socket"
         android:textAlignment="center"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMain" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMain"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica" />
 
     <Button
-        android:id="@+id/btnScript2"
+        android:id="@+id/btnConfiguracoes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="SCRIPT 2 (Escrever linha em um arquivo)"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica"
+        android:layout_marginBottom="16dp"
+        android:text="Configurações"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScript1" />
-
-    <Button
-        android:id="@+id/btnScriptSSH"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Acesso SSH"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScript2"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica" />
 </androidx.constraintlayout.widget.ConstraintLayout>

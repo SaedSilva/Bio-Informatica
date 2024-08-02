@@ -16,19 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.ResultadoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.SalvarComandoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.ComandosActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.SSHActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.TextoActivity"
+            android:name=".view.ConfiguracoesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
