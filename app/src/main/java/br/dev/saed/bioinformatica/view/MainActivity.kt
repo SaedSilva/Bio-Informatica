@@ -15,7 +15,6 @@ import br.dev.saed.bioinformatica.model.utils.porta
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -23,28 +22,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        carregarConfiguracoes()
         inicializarComponentes()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        carregarConfiguracoes()
     }
 
     private fun carregarConfiguracoes() {
         dataStore.data.map { preferences ->
             val host = preferences[host]
             val porta = preferences[porta]
-            if (host != null && porta != null) {
+            if ((host != null && porta != null) && (host.isNotBlank())) {
                 ConfigManager.config = Config(host, porta)
             } else {
                 val alertDialog = AlertDialog.Builder(this, R.style.AlertDialogStyle)
                     .setTitle("Configurações")
                     .setMessage("É necessário configurar o host e a porta para continuar.")
-                    .setPositiveButton("OK") { dialog, _ ->
-                        dialog.dismiss()
-                        val intent = Intent(this, ConfiguracoesActivity::class.java)
-                        startActivity(intent)
+                    .setPositiveButton("OK") { _, _ ->
                     }
+
                     .show()
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.white))
                 alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.white))
+                alertDialog.setOnDismissListener {
+                    val intent = Intent(this, ConfiguracoesActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }.launchIn(lifecycleScope)
     }
