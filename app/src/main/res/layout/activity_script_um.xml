@@ -12,6 +12,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/img_script1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Script 1 será executado aqui nessa tela."
+        android:text="@string/txt_script1"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +41,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Enviar"
+        android:text="@string/btn_enviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +65,7 @@
             android:id="@+id/etMensagem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Digite um numero inteiro"
+            android:hint="@string/edit_inteiro"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +86,7 @@
             android:id="@+id/etMensagem2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Digite um numero romano"
+            android:hint="@string/edit_romano"
             android:inputType="text|textShortMessage|textNoSuggestions" />
     </com.google.android.material.textfield.TextInputLayout>
 

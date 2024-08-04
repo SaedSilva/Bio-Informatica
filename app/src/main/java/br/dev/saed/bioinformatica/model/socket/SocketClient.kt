@@ -6,20 +6,23 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.net.InetSocketAddress
 import java.net.Socket
+import java.net.SocketAddress
 
 class SocketClient(
-    private val host: String,
-    private val port: Int,
+    host: String,
+    port: Int,
 ) {
-    private lateinit var client: Socket
+    private var client: Socket = Socket()
     private lateinit var inputStreamReader: InputStreamReader
     private lateinit var outputStreamWriter: OutputStreamWriter
+    private var socketAddress: SocketAddress = InetSocketAddress(host, port)
 
     suspend fun connect(): Boolean {
         try {
             withContext(Dispatchers.IO) {
-                client = Socket(host, port)
+                client.connect(socketAddress, 2000)
                 inputStreamReader = client.getInputStream().reader()
                 outputStreamWriter = client.getOutputStream().writer()
             }
@@ -38,8 +41,6 @@ class SocketClient(
 
             val bufferedReader = BufferedReader(inputStreamReader)
             return bufferedReader.readLine()
-
-
         } catch (e: Exception) {
             e.printStackTrace()
             return "Erro ao enviar mensagem"

@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ScriptUmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScriptUmBinding
@@ -24,6 +23,11 @@ class ScriptUmActivity : AppCompatActivity() {
         inicializarComponentes()
         inicializarObservers()
         verificarConexao()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.disconnect()
     }
 
     private fun verificarConexao() {
@@ -41,11 +45,6 @@ class ScriptUmActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.disconnect()
     }
 
     private fun inicializarObservers() {
@@ -81,6 +80,7 @@ class ScriptUmActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun concatenarComandos(comando1: String, comando2: String): String {
         return "$comando1, $comando2"
     }
