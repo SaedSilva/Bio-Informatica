@@ -42,7 +42,7 @@ class SocketClient(
 
         } catch (e: Exception) {
             e.printStackTrace()
-            return e.message ?: "Erro ao enviar mensagem"
+            return "Erro ao enviar mensagem"
         }
     }
 
@@ -52,5 +52,9 @@ class SocketClient(
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun isConnected(): Boolean {
+        return client.isConnected
     }
 }

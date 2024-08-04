@@ -33,4 +33,8 @@ class ScriptUmViewModel : ViewModel() {
     fun disconnect() {
         SocketManager.socketClient?.disconnect()
     }
+
+    fun isConnected(): Boolean {
+        return SocketManager.socketClient?.isConnected() ?: false
+    }
 }
