@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun inicializarComponentes() {
-        binding.btnSocket.setOnClickListener {
-            val intent = Intent(this, ScriptUmActivity::class.java)
+        binding.btnRomanos.setOnClickListener {
+            val intent = Intent(this, RomanosActivity::class.java)
             startActivity(intent)
         }
 

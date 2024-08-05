@@ -7,7 +7,8 @@
     <string name="edit_timeout">Tempo limite de conexão em segundos</string>
     <string name="img_ssh">Imagem SSH</string>
     <string name="txt_main">Aplicativo feito para o teste de bolsista do Allan.</string>
-    <string name="btn_socket">Socket</string>
+    <string name="btn_romanos">Romanos</string>
+    <string name="btn_texto">Texto Aleatório</string>
     <string name="btn_config">Configurações</string>
     <string name="img_ia">DNA</string>
     <string name="btn_enviar">Enviar</string>

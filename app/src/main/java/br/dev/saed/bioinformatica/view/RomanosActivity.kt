@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import br.dev.saed.bioinformatica.databinding.ActivityScriptUmBinding
+import br.dev.saed.bioinformatica.databinding.ActivityRomanosBinding
 import br.dev.saed.bioinformatica.model.utils.ConfigManager
 import br.dev.saed.bioinformatica.viewmodel.ScriptViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,13 +12,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class ScriptUmActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityScriptUmBinding
+class RomanosActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRomanosBinding
     private val viewModel: ScriptViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityScriptUmBinding.inflate(layoutInflater)
+        binding = ActivityRomanosBinding.inflate(layoutInflater)
         setContentView(binding.root)
         inicializarComponentes()
         inicializarObservers()
@@ -84,6 +84,6 @@ class ScriptUmActivity : AppCompatActivity() {
     }
 
     private fun concatenarComandos(comando1: String, comando2: String): String {
-        return "$comando1, $comando2"
+        return "romanos, $comando1, $comando2"
     }
 }
