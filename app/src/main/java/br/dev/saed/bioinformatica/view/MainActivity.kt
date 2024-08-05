@@ -12,6 +12,7 @@ import br.dev.saed.bioinformatica.model.utils.ConfigManager
 import br.dev.saed.bioinformatica.model.utils.dataStore
 import br.dev.saed.bioinformatica.model.utils.host
 import br.dev.saed.bioinformatica.model.utils.porta
+import br.dev.saed.bioinformatica.model.utils.timeout
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 
@@ -34,8 +35,9 @@ class MainActivity : AppCompatActivity() {
         dataStore.data.map { preferences ->
             val host = preferences[host]
             val porta = preferences[porta]
-            if ((host != null && porta != null) && (host.isNotBlank())) {
-                ConfigManager.config = Config(host, porta)
+            val timeout = preferences[timeout]
+            if ((host != null && porta != null && timeout != null) && (host.isNotBlank())) {
+                ConfigManager.config = Config(host, porta, timeout)
             } else {
                 val alertDialog = AlertDialog.Builder(this, R.style.AlertDialogStyle)
                     .setTitle("Configurações")

@@ -13,6 +13,7 @@ import java.net.SocketAddress
 class SocketClient(
     host: String,
     port: Int,
+    private var timeout: Int
 ) {
     private var client: Socket = Socket()
     private lateinit var inputStreamReader: InputStreamReader
@@ -22,7 +23,7 @@ class SocketClient(
     suspend fun connect(): Boolean {
         try {
             withContext(Dispatchers.IO) {
-                client.connect(socketAddress, 2000)
+                client.connect(socketAddress, (timeout * 1000))
                 inputStreamReader = client.getInputStream().reader()
                 outputStreamWriter = client.getOutputStream().writer()
             }

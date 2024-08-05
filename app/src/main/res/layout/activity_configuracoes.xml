@@ -58,7 +58,29 @@
             android:id="@+id/etPorta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_porta" />
+            android:hint="@string/edit_porta"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTimeout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColorHint="@color/textColorHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPorta">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTimeout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_timeout"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -72,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPorta"
+        app:layout_constraintTop_toBottomOf="@+id/tilTimeout"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica"
         tools:ignore="TextContrastCheck" />
 

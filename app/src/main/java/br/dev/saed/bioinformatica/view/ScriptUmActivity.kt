@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.dev.saed.bioinformatica.databinding.ActivityScriptUmBinding
 import br.dev.saed.bioinformatica.model.utils.ConfigManager
-import br.dev.saed.bioinformatica.viewmodel.ScriptUmViewModel
+import br.dev.saed.bioinformatica.viewmodel.ScriptViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class ScriptUmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScriptUmBinding
-    private val viewModel: ScriptUmViewModel by viewModels()
+    private val viewModel: ScriptViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +64,8 @@ class ScriptUmActivity : AppCompatActivity() {
     }
 
     private fun inicializarComponentes() {
+        Toast.makeText(this, "Conectando em: ${viewModel.getHostAndPort()}", Toast.LENGTH_SHORT).show()
+
         binding.btnEnviar.setOnClickListener {
             if (binding.etMensagem.text.toString().isEmpty()) {
                 binding.etMensagem.error = "Digite uma mensagem"

@@ -11,6 +11,7 @@ import br.dev.saed.bioinformatica.model.utils.ConfigManager
 import br.dev.saed.bioinformatica.model.utils.dataStore
 import br.dev.saed.bioinformatica.model.utils.host
 import br.dev.saed.bioinformatica.model.utils.porta
+import br.dev.saed.bioinformatica.model.utils.timeout
 import br.dev.saed.bioinformatica.viewmodel.ConfiguracoesViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -32,12 +33,14 @@ class ConfiguracoesActivity : AppCompatActivity() {
     private fun carregarConfiguracoes() {
         dataStore.data.map { preferences ->
             val host = preferences[host] ?: ""
-            val porta = preferences[porta] ?: "0"
+            val porta = preferences[porta] ?: 0
+            val timeout = preferences[timeout] ?: 1
 
-            ConfigManager.config = Config(host, porta.toString().toInt())
+            ConfigManager.config = Config(host, porta.toString().toInt(), timeout)
 
             binding.etHost.setText(host)
             binding.etPorta.setText(porta.toString())
+            binding.etTimeout.setText(timeout.toString())
         }.launchIn(lifecycleScope)
     }
 
@@ -57,7 +60,8 @@ class ConfiguracoesActivity : AppCompatActivity() {
             dataStore.edit { preferences ->
                 preferences[host] = binding.etHost.text.toString()
                 preferences[porta] = binding.etPorta.text.toString().toInt()
-                ConfigManager.config = Config(binding.etHost.text.toString(), binding.etPorta.text.toString().toInt())
+                preferences[timeout] = binding.etTimeout.text.toString().toInt()
+                ConfigManager.config = Config(binding.etHost.text.toString(), binding.etPorta.text.toString().toInt(), binding.etTimeout.text.toString().toInt())
             }
         }
     }

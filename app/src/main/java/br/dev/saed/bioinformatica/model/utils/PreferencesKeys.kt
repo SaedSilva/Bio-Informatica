@@ -10,3 +10,4 @@ import androidx.datastore.preferences.preferencesDataStore
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
 val host = stringPreferencesKey("host")
 val porta = intPreferencesKey("porta")
+val timeout = intPreferencesKey("timeout")

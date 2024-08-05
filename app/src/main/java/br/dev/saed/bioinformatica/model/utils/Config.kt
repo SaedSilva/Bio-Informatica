@@ -6,6 +6,7 @@ object ConfigManager {
 
 class Config(
     var host: String,
-    var port: Int
+    var port: Int,
+    var timeout: Int
 )
 
