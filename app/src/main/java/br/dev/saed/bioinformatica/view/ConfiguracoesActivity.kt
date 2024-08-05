@@ -1,6 +1,7 @@
 package br.dev.saed.bioinformatica.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
@@ -12,14 +13,16 @@ import br.dev.saed.bioinformatica.model.utils.dataStore
 import br.dev.saed.bioinformatica.model.utils.host
 import br.dev.saed.bioinformatica.model.utils.porta
 import br.dev.saed.bioinformatica.model.utils.timeout
-import br.dev.saed.bioinformatica.viewmodel.ConfiguracoesViewModel
+import br.dev.saed.bioinformatica.viewmodel.ScriptViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class ConfiguracoesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityConfiguracoesBinding
-    private val viewModel: ConfiguracoesViewModel by viewModels()
+    private val viewModel: ScriptViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +48,27 @@ class ConfiguracoesActivity : AppCompatActivity() {
     }
 
     private fun inicializarObservers() {
-
+        viewModel.resultado.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Conectado com sucesso", Toast.LENGTH_SHORT).show()
+                viewModel.disconnect()
+            } else {
+                Toast.makeText(this, "Erro ao conectar", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun inicializarComponentes() {
         binding.btnSalvarConfig.setOnClickListener {
             salvarConfiguracoes()
             finish()
+        }
+        binding.btnTestarConfig.setOnClickListener {
+            Toast.makeText(this, "Tentando conectar em ${viewModel.getHostAndPort()}", Toast.LENGTH_SHORT).show()
+
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.connect()
+            }
         }
     }
 

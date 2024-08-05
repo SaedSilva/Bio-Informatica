@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Bio Informatica</string>
     <string name="btn_salvar">Salvar</string>
+    <string name="btn_testar">Testar Conexão</string>
     <string name="edit_host">Host</string>
     <string name="edit_porta">Porta</string>
     <string name="edit_timeout">Tempo limite de conexão em segundos</string>
