@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import br.dev.saed.bioinformatica.databinding.ActivityTextoBinding
+import br.dev.saed.bioinformatica.databinding.ActivityRomanosBinding
 import br.dev.saed.bioinformatica.model.utils.ConfigManager
 import br.dev.saed.bioinformatica.viewmodel.ScriptViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,13 +12,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class TextoActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityTextoBinding
+class RomanosActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRomanosBinding
     private val viewModel: ScriptViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTextoBinding.inflate(layoutInflater)
+        binding = ActivityRomanosBinding.inflate(layoutInflater)
         setContentView(binding.root)
         inicializarComponentes()
         inicializarObservers()
@@ -49,7 +49,7 @@ class TextoActivity : AppCompatActivity() {
 
     private fun inicializarObservers() {
         viewModel.mensagem.observe(this) { mensagem ->
-            binding.tvResultadoScript2.text = mensagem
+            binding.tvResultadoScript1.text = mensagem
         }
         viewModel.resultado.observe(this) { resultado ->
             Toast.makeText(
@@ -64,17 +64,16 @@ class TextoActivity : AppCompatActivity() {
     }
 
     private fun inicializarComponentes() {
-        Toast.makeText(this, "Conectando em: ${viewModel.getHostAndPort()}", Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(this, "Conectando em: ${viewModel.getHostAndPort()}", Toast.LENGTH_SHORT).show()
 
-        binding.btnEnviarTexto.setOnClickListener {
-            if (binding.etNumeroPalavras.text.toString().isEmpty()) {
-                binding.etNumeroPalavras.error = "Digite uma mensagem"
-            } else if (binding.etNumeroCaracteres.text.toString().isEmpty()) {
-                binding.etNumeroCaracteres.error = "Digite uma mensagem"
+        binding.btnEnviar.setOnClickListener {
+            if (binding.etMensagem.text.toString().isEmpty()) {
+                binding.etMensagem.error = "Digite uma mensagem"
+            } else if (binding.etMensagem2.text.toString().isEmpty()) {
+                binding.etMensagem2.error = "Digite uma mensagem"
             } else {
-                val comando1 = binding.etNumeroCaracteres.text.toString()
-                val comando2 = binding.etNumeroPalavras.text.toString()
+                val comando1 = binding.etMensagem.text.toString()
+                val comando2 = binding.etMensagem2.text.toString()
                 val comandoConcatenado = concatenarComandos(comando1, comando2)
 
                 CoroutineScope(Dispatchers.IO).launch {
@@ -85,6 +84,6 @@ class TextoActivity : AppCompatActivity() {
     }
 
     private fun concatenarComandos(comando1: String, comando2: String): String {
-        return "texto, $comando1, $comando2"
+        return "romanos, $comando1, $comando2"
     }
 }

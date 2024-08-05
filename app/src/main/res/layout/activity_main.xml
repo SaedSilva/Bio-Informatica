@@ -14,6 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/img_ia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Aplicativo feito para o teste de bolsista do Allan."
+        android:text="@string/txt_main"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,45 +37,46 @@
         app:layout_constraintTop_toBottomOf="@+id/imgMain" />
 
     <Button
-        android:id="@+id/btnScript1"
+        android:id="@+id/btnRomanos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="SCRIPT 1 (Gerar nome aleatório)"
+        android:text="@string/btn_romanos"
         android:textAlignment="center"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMain" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMain"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica" />
 
     <Button
-        android:id="@+id/btnScript2"
+        android:id="@+id/btnTextoAleatorio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="SCRIPT 2 (Escrever linha em um arquivo)"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica"
+        android:text="@string/btn_texto"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScript1" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRomanos"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica" />
 
     <Button
-        android:id="@+id/btnScriptSSH"
+        android:id="@+id/btnConfiguracoes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Acesso SSH"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_config"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnScript2"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.BioInformatica" />
 </androidx.constraintlayout.widget.ConstraintLayout>

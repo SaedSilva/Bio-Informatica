@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Bio Informatica</string>
+    <string name="btn_salvar">Salvar</string>
+    <string name="btn_testar">Testar Conexão</string>
+    <string name="edit_host">Host</string>
+    <string name="edit_porta">Porta</string>
+    <string name="edit_timeout">Tempo limite de conexão em segundos</string>
+    <string name="img_ssh">Imagem SSH</string>
+    <string name="txt_main">Aplicativo feito para o teste de bolsista do Allan.</string>
+    <string name="btn_romanos">Romanos</string>
+    <string name="btn_texto">Texto Aleatório</string>
+    <string name="btn_config">Configurações</string>
+    <string name="img_ia">DNA</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="edit_inteiro">Digite um numero inteiro</string>
+    <string name="edit_romano">Digite um numero romano</string>
+    <string name="edit_caracteres">Digite a quantidade de caracteres</string>
+    <string name="edit_palavras">Digite a quantidade de palavras</string>
+    <string name="txt_script1">Script 1 será executado aqui nessa tela.</string>
+    <string name="txt_script2">Script 2 será executado aqui nessa tela.</string>
+    <string name="img_script1">Python</string>
 </resources>
