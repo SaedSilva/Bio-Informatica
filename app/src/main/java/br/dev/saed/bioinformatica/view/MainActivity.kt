@@ -24,10 +24,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         inicializarComponentes()
-    }
-
-    override fun onStart() {
-        super.onStart()
         carregarConfiguracoes()
     }
 
@@ -43,15 +39,18 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("Configurações")
                     .setMessage("É necessário configurar o host e a porta para continuar.")
                     .setPositiveButton("OK") { _, _ ->
+                        val intent = Intent(this, ConfiguracoesActivity::class.java)
+                        startActivity(intent)
+                    }
+                    .setNegativeButton("Cancelar") { _, _ ->
+                        finish()
                     }
 
                     .show()
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.white))
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.white))
-                alertDialog.setOnDismissListener {
-                    val intent = Intent(this, ConfiguracoesActivity::class.java)
-                    startActivity(intent)
-                }
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(getColor(R.color.white))
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(getColor(R.color.white))
             }
         }.launchIn(lifecycleScope)
     }

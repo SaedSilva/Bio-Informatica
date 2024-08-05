@@ -64,7 +64,11 @@ class ConfiguracoesActivity : AppCompatActivity() {
             finish()
         }
         binding.btnTestarConfig.setOnClickListener {
-            Toast.makeText(this, "Tentando conectar em ${viewModel.getHostAndPort()}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Tentando conectar em ${viewModel.getHostAndPort()}",
+                Toast.LENGTH_SHORT
+            ).show()
 
             CoroutineScope(Dispatchers.IO).launch {
                 viewModel.connect()
@@ -73,12 +77,16 @@ class ConfiguracoesActivity : AppCompatActivity() {
     }
 
     private fun salvarConfiguracoes() {
+        ConfigManager.config = Config(
+            binding.etHost.text.toString(),
+            binding.etPorta.text.toString().toInt(),
+            binding.etTimeout.text.toString().toInt()
+        )
         lifecycleScope.launch {
             dataStore.edit { preferences ->
                 preferences[host] = binding.etHost.text.toString()
                 preferences[porta] = binding.etPorta.text.toString().toInt()
                 preferences[timeout] = binding.etTimeout.text.toString().toInt()
-                ConfigManager.config = Config(binding.etHost.text.toString(), binding.etPorta.text.toString().toInt(), binding.etTimeout.text.toString().toInt())
             }
         }
     }
