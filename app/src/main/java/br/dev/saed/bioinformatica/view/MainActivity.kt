@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnTextoAleatorio.setOnClickListener {
+            val intent = Intent(this, TextoActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnConfiguracoes.setOnClickListener {
             val intent = Intent(this, ConfiguracoesActivity::class.java)
             startActivity(intent)
