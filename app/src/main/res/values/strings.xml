@@ -19,4 +19,5 @@
     <string name="txt_script1">Script 1 será executado aqui nessa tela.</string>
     <string name="txt_script2">Script 2 será executado aqui nessa tela.</string>
     <string name="img_script1">Python</string>
+    <string name="title_activity_config">ConfigActivity</string>
 </resources>

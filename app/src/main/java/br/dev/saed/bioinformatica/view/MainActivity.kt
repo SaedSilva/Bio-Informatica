@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnConfiguracoes.setOnClickListener {
-            val intent = Intent(this, ConfiguracoesActivity::class.java)
+            val intent = Intent(this, ConfigActivity::class.java)
             startActivity(intent)
         }
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.dev.saed.bioinformatica.model.socket.SocketClient
 import br.dev.saed.bioinformatica.model.socket.SocketManager
+import br.dev.saed.bioinformatica.model.utils.Config
 import br.dev.saed.bioinformatica.model.utils.ConfigManager
 
 class ScriptViewModel : ViewModel() {
@@ -29,6 +30,10 @@ class ScriptViewModel : ViewModel() {
         val result = SocketManager.socketClient!!.connect()
         _resultado.postValue(result)
         return result
+    }
+
+    fun salvarConfiguracoes(host: String, port: Int, timeout: Int) {
+        ConfigManager.config = Config(host = host, port = port, timeout = timeout)
     }
 
     fun send(mensagem: String) {
